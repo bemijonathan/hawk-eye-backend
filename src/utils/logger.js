@@ -8,4 +8,9 @@ export class Logger  {
     static success(data){
         console.log(chalk.blueBright.bold(data));
     }
+
+    static logRequest(req, res, next){
+        console.log(chalk.blueBright.bold(JSON.stringify(req.body), JSON.stringify(req.params)))
+        next()
+    }
 }

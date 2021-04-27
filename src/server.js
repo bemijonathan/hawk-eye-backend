@@ -2,14 +2,16 @@ import express from "express"
 import morgan from "morgan"
 import cors from 'cors'
 import { json, urlencoded } from 'body-parser'
-import { dbConnection } from "./config/db"
-import postRoutes from "./resources/posts/post.routes"
+import { dbConnection, SetUp } from "./config/db"
+// import postRoutes from "./resources/posts/post.routes"
 import contactRoutes from './resources/contacts/contacts.routes'
+import userRoute from './resources/users/user.route';
 import categoryRoutes from './resources/category/category.route'
-// import { User } from "./resources/users/user.model"
+import notificationRoute from './resources/notification/notification.routes'
 import AuthRouter from "./utils/auth.route"
 import { isCelebrateError } from "celebrate"
 import { F } from "./utils/response"
+import { Logger } from "./utils/logger"
 
 const app = express()
 
@@ -19,10 +21,12 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 
 
-app.use("/api/auth", AuthRouter)
-app.use('/api/posts', postRoutes)
-app.use('/api/contacts', contactRoutes)
-app.use('/api/category', categoryRoutes)
+app.use("/api/auth", Logger.logRequest, AuthRouter)
+// app.use('/api/posts', postRoutes)
+app.use('/api/contacts', Logger.logRequest, contactRoutes)
+app.use('/api/category', Logger.logRequest, categoryRoutes)
+app.use('/api/notification', Logger.logRequest, notificationRoute)
+app.use('/api/user',  Logger.logRequest, userRoute )
 
 app.get('/', (req, res) => {
     res.json({
@@ -47,6 +51,7 @@ app.use('*', (_, res) => {
 export const start = async (port) => {
     try {
         await dbConnection()
+        await SetUp()
         app.listen(port, () => {
             console.log(`REST API on http://localhost:${port}/api`)
         })

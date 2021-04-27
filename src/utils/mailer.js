@@ -5,33 +5,20 @@ import jwt from "jsonwebtoken"
 import chalk from "chalk"
 import Email from 'email-templates'
 
-// const transporter = nodemailer.createTransport(smtpTransport({
-//   service: "gmail",
-//   host: "smtp.gmail.com",
-//   auth: {
-//     user: "", // username 
-//     pass: "" // password
-//   }
-// }))
 
-
-
-export const createEmailPayload = (from, to, subject, template, variables) => {
+//configurations
+export const createEmailPayload = () => {
   const email = new Email({
     message: {
-      from
-    },
-    template: 'alert',
-    locals: {
-      ...variables
+      from: 'bemijonathan@gmail.com'
     },
     send: true,
     transport: {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "", //username
-        pass: "" //password
+        user: "bemijonathan", //username
+        pass: "uwnuidhiitddzoir" //password
       }
     },
     views: {
@@ -44,44 +31,45 @@ export const createEmailPayload = (from, to, subject, template, variables) => {
 }
 
 
-const sendEmail = ({ mailOptions, to }, callback) => {
-  // transporter.sendMail(mailOptions, function (error, info) {
-  //   if (error) {
-  //     console.log(chalk.blueBright(error))
-  //     callback(false)
-  //   } else {
-  //     console.log("Email sent: " + info.response)
-  //     callback(true)
-  //   }
-  // })
-
-  mailOptions
-    .send({
-      template: 'mars',
-      message: {
-        to,
-      },
-      locals: {
-        name: 'Elon'
+//send mails
+export const sendEmail = ({ mailOptions, to, data, template }, callback) => {
+  Promise.all(
+    [...to.map(
+      (element, i) => {
+        mailOptions
+          .send({
+            template,
+            message: {
+              to: element,
+            },
+            locals: data[i]
+          })
+          .then(e => {
+            console.log(e)
+            callback(e, true)
+          })
+          .catch(e => {
+            console.log(e)
+            callback(e, false)
+          })
       }
-    })
-    .then(callback(true))
-    .catch(callback(false));
+    )])
 }
 
 
 
+
+
 export const forgotPasswordMail = async (email, token) => {
-  console.log('going')
-  let mailOptions = createEmailPayload(
-    email,
-    ['atienejonathan@gmail.com', 'yerekadonaald@gmail.com'],
-    'HELO FROM MARTS', 'mars',
-    { name: 'jonathan' }
-  )
-  sendEmail({ mailOptions, to: email }, (response) => {
+  let mailOptions = createEmailPayload()
+  sendEmail({
+    mailOptions,
+    to: [email],
+    data: [{ token }],
+    template: 'forgotpassword'
+  }, (response) => {
     console.log(chalk.yellow.bold(response, email))
-    return response
+    return response;
   })
 }
 
@@ -100,6 +88,4 @@ export const verifyEmailToken = (token) =>
     })
   })
 
-
-// forgotPasswordMail('email@gmail.com')
 

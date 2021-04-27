@@ -10,10 +10,5 @@ router.route('/')
             title: Joi.string()
         })
     }), controller.create)
-
-// router.route('/:id')
-//     .get(controller.getOne)
-//     .put(controller.updateOne)
-//     .delete(controller.removeOne)
-
+    
 export default router

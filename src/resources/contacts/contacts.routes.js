@@ -23,7 +23,7 @@ router.route('/many')
             body: Joi.array().items({
                 name: Joi.string().optional(),
                 phone: Joi.string().required().min(11),
-                email: Joi.string().optional().email()
+                email: Joi.string().optional().email().allow('')
             })
         }),
         protect,

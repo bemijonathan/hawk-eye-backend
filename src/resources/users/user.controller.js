@@ -10,7 +10,7 @@ export const controller = {
         try {
             const { latitude, longitude } = req.body;
             const details = await User.findOneAndUpdate({ _id: req.user._id }, { latitude, longitude }, { new: true });
-            s(res, 200, true, null, "successfull updated Location");
+            s(res, 200, true, null, "successfully updated Location");
         } catch (error) {
             Logger.error(error)
             F.serverError(res)
@@ -18,8 +18,5 @@ export const controller = {
     }
 
 }
-
-
-export default crudControllers(Contact)
 
 

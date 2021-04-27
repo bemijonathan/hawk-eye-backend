@@ -22,8 +22,8 @@ export const verifyToken = token =>
 export const signup = async (req, res) => {
     try {
 
-        let user = await User.findOne({ email: req.body.email })
-        if(user){
+        let user = await User.findOne({ email: req.body.email.toLowerCase() })
+        if (user) {
             return F.unprocessedEntity(res, 'user already exists')
         }
         user = await User.create(req.body)
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
     const invalid = 'Invalid email or password'
     try {
-        const user = await User.findOne({ email: req.body.email })
+        const user = await User.findOne({ email: req.body.email.toLowerCase() })
             .select('email password')
             .exec()
         if (!user) {
