@@ -8,7 +8,7 @@
     "dev": "nodemon --exec yarn restart",
     "build": "babel src --out-dir dist",
     "restart": "rimraf dist && yarn build && yarn start",
-    "start": "node dist/index.js"
+    "start": "yarn build && node dist/index.js"
   },
   "keywords": [],
   "author": "",

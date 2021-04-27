@@ -21,24 +21,24 @@ For development, you will only need Node.js and a node global package, Yarn, ins
 
  - ## Running Locally 
 
-    $ git clone git@github.com:bemijonathan/hawk-eye-backend.git
-    $ cd hawk-eye-backend
-    $ npm install
-    $ touch .env
+        $ git clone git@github.com:bemijonathan/hawk-eye-backend.git
+        $ cd hawk-eye-backend
+        $ npm install
+        $ touch .env
 
   - ### Environment variables
 
     ```
-        # .env
+    # .env
 
-        JWT_TOKEN=template#$#
-        JWT_TIME=200000h
-        DB_URL= #set the db url base on your configuration
+    JWT_TOKEN=template#$#
+    JWT_TIME=20h
+    DB_URL= #set the db url base on your configuration
 
     ```
-  Then Start the server
+  - ### Then Start the server
 
-    $ npm run dev
+        $ npm run dev
 
  - ### Api Documentation can be Found here
     
@@ -46,6 +46,7 @@ For development, you will only need Node.js and a node global package, Yarn, ins
 
 
  - ### Tests
+ 
+    [![Test and deploy to production](https://github.com/bemijonathan/hawk-eye-backend/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/bemijonathan/hawk-eye-backend/actions/workflows/main.yml)
 
-  To test the Code 
-    $ npm run test
+        $ npm run test
