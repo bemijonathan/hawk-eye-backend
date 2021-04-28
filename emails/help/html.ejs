@@ -1,9 +1,15 @@
-<p> Hello <%= firstName %>  <%= lastName %>, is asking for your help he/she may be in som serious trouble </p>
+<p> Hello <%= firstName %>
+        <%= lastName %>, is asking for your help he/she may be in a serious trouble <%= `(${category || ''})` %>
+</p>
 <p> Please Get to Him as soon as possible, Help Save a live today </p>
 <p>
-    Last Map cordinates 
-    <li> Longitude <%= longitude %> </li>
-    <li> Latitude <%= latitude %> </li>
+    Last Map cordinates
+    
+    <li> Longitude <%= longitude %>
+    </li>
+    <li> Latitude <%= latitude %>
+    </li>
     Phone
-    <li> Phone <%= phone %> </li>
+    <li> Phone <%= phoneNumber %>
+    </li>
 </p>

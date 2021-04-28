@@ -12,7 +12,7 @@ export const createEmailPayload = () => {
     message: {
       from: 'bemijonathan@gmail.com'
     },
-    send: true,
+    send: false,
     transport: {
       service: "gmail",
       host: "smtp.gmail.com",
@@ -25,7 +25,8 @@ export const createEmailPayload = () => {
       options: {
         extension: 'ejs'
       }
-    }
+    },
+    preview: process.env.NODE_ENV ? false : true 
   })
   return email
 }

@@ -4,7 +4,7 @@ import { protect } from "../../utils/auth";
 import {controller}  from './notification.controller'
 const router = Router()
 
-router.route('/')
+router.route('/:id')
     .post( celebrate({
         params:Joi.object({
             id: Joi.string().optional()
