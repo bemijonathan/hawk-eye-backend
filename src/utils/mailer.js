@@ -12,13 +12,13 @@ export const createEmailPayload = () => {
     message: {
       from: 'bemijonathan@gmail.com'
     },
-    send: false,
+    send: true,
     transport: {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "bemijonathan", //username
-        pass: "uwnuidhiitddzoir" //password
+        user: process.env.email_username, //username
+        pass: process.env.email_password //password
       }
     },
     views: {
@@ -56,10 +56,6 @@ export const sendEmail = ({ mailOptions, to, data, template }, callback) => {
       }
     )])
 }
-
-
-
-
 
 export const forgotPasswordMail = async (email, token) => {
   let mailOptions = createEmailPayload()

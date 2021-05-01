@@ -28,11 +28,11 @@ export const controller = {
                 text = messages.defaultSos(req.user, req.user.name, 'SOS')
 
                 Notification.sendEmails('help', contactEmails, { ...req.user, category: category.title }).then()
-                Notification.sendSMS(text, contactPhones).then();
+                Notification.sendSMS(text, contactPhones, { ...req.user, category: category.title }).then();
                 return s(res, 200, true, {}, 'Help is on the way')
             }
             Notification.sendEmails('help', contactEmails, { ...req.user, category: category.title }).then()
-            Notification.sendSMS('help', contactPhones).then()
+            Notification.sendSMS('help', contactPhones, { ...req.user, category: category.title }).then()
             return s(res, 200, true, {}, 'Help is on the way')
         } catch (err) {
             Logger.error(err)
