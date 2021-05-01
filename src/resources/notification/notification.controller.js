@@ -3,6 +3,7 @@ import { crudControllers } from "../../utils/crud";
 import { messages } from "../../utils/data/messages";
 import { Logger } from "../../utils/logger";
 import { F, s } from "../../utils/response";
+import { Alert } from "../alerts/alert.model";
 import { Category } from "../category/category.model";
 import { Contact } from "../contacts/contacts.model";
 
@@ -16,6 +17,7 @@ export const controller = {
 
             const contactEmails = contacts.map(e => e.email)
             const contactPhones = contacts.map(e => e.phone)
+            const contactId = contacts.map(e => e._id)
             console.log('here')
             let text;
 
@@ -23,6 +25,9 @@ export const controller = {
                 Logger('no contact added')
                 return F.notfound(res, 'No contact found')
             }
+
+            await Alert.create({userId: req.user._id , contacts: contactId});
+
             if (!category) {
                 console.log(req.user)
                 text = messages.defaultSos(req.user, req.user.name, 'SOS')

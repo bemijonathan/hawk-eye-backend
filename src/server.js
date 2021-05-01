@@ -8,6 +8,7 @@ import contactRoutes from './resources/contacts/contacts.routes'
 import userRoute from './resources/users/user.route';
 import categoryRoutes from './resources/category/category.route'
 import notificationRoute from './resources/notification/notification.routes'
+import reportRoute from './resources/Reports/report.routes'
 import AuthRouter from "./utils/auth.route"
 import { isCelebrateError } from "celebrate"
 import { F } from "./utils/response"
@@ -27,6 +28,7 @@ app.use('/api/contacts', Logger.logRequest, contactRoutes)
 app.use('/api/category', Logger.logRequest, categoryRoutes)
 app.use('/api/notification', Logger.logRequest, notificationRoute)
 app.use('/api/user',  Logger.logRequest, userRoute )
+app.use('/api/report', Logger.logRequest, reportRoute)
 
 app.get('/', (req, res) => {
     res.json({

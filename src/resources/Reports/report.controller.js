@@ -1,21 +1,35 @@
 import { crudControllers } from "../../utils/crud";
 import { Report } from "./report.model";
+import { Alert } from '../alerts/alert.model'
+import { Logger } from "../../utils/logger";
+import { F, s } from "../../utils/response";
 
 
 export const controller = {
     async createReport(req, res) {
         try {
-            const { image, video, sound, body, police, ngo } = req.body;
-            Notification.sendEmails(ngo, { video, image, sound }, body, title).then();
-            Notification.sendSMS(police, { video, image, sound }, body, title).then();
-            const report = await Report.create({ police, ngo, video, image, sound, userId: req.user.id, title })
+            const report = await Report.create({...req.body, userId: req.user._id})
             return s(res, 201, true, report, "success");
         } catch (err) {
             Logger.error(err)
+            return F.serverError(res);
+        }
+    },
+
+    async getReportStats(req, res) {
+        try {
+            const user = req.user
+            const allreport = await Report.count({});
+            const myreport = await Report.count({ userId: user._id })
+            const myAlert = await Alert.count({ userId: user._id })
+
+            return s(res, 201, true, { allreport, myreport, myAlert }, 'success')
+        } catch (error) {
+            Logger.error(error)
             return F.serverError(res);
         }
     }
 }
 
 
-export default crudControllers(Post)
+export default crudControllers(Report)

@@ -13,6 +13,6 @@ router.route('/')
     }),
         protect,
         controller.patchLocation
-    );
+    ).get(protect, controller.getUSerDetails);
 
 export default router

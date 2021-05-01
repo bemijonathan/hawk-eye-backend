@@ -2,6 +2,7 @@ import { crudControllers } from "../../utils/crud";
 import { Logger } from "../../utils/logger";
 import { F, s } from "../../utils/response";
 import { User } from "./user.model";
+import {Contact} from '../contacts/contacts.model'
 
 
 export const controller = {
@@ -15,6 +16,16 @@ export const controller = {
             Logger.error(error)
             F.serverError(res)
         }
+    },
+
+    async getUSerDetails(req, res) {
+        const user = req.user;
+        const contacts = await Contact.find({userId: req.user._id})
+        delete user.password;
+        delete user.token 
+        console.log(contacts)
+        user.contacts = contacts
+       return s(res, 200, true, user, 'success')
     }
 
 }
