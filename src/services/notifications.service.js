@@ -21,7 +21,7 @@ export class Notification {
             // do what ever you want good to tell the users the failed ones
         }
         const datas = Array(recepients.length).fill(data)
-        console.log(datas)
+        
         await sendEmail({ mailOptions, to: [...recepients], data: datas, template }, saveAlert);
     }
 

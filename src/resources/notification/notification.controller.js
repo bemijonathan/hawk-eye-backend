@@ -18,7 +18,6 @@ export const controller = {
             const contactEmails = contacts.map(e => e.email)
             const contactPhones = contacts.map(e => e.phone)
             const contactId = contacts.map(e => e._id)
-            console.log('here')
             let text;
 
             if (contacts.length === 0) {
@@ -29,7 +28,6 @@ export const controller = {
             await Alert.create({userId: req.user._id , contacts: contactId});
 
             if (!category) {
-                console.log(req.user)
                 text = messages.defaultSos(req.user, req.user.name, 'SOS')
 
                 Notification.sendEmails('help', contactEmails, { ...req.user, category: category.title }).then()

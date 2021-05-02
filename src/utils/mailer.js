@@ -46,11 +46,11 @@ export const sendEmail = ({ mailOptions, to, data, template }, callback) => {
             locals: data[i]
           })
           .then(e => {
-            console.log(e)
+            // console.log(e)
             callback(e, true)
           })
           .catch(e => {
-            console.log(e)
+            // console.log(e)
             callback(e, false)
           })
       }
@@ -65,7 +65,7 @@ export const forgotPasswordMail = async (email, token) => {
     data: [{ token }],
     template: 'forgotpassword'
   }, (response) => {
-    console.log(chalk.yellow.bold(response, email))
+    // console.log(chalk.yellow.bold(response, email))
     return response;
   })
 }
