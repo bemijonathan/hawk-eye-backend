@@ -17,6 +17,11 @@ router.route('/')
         })
     }), protect, controller.createReport)
 
+    router.route('/all')
+    .get(
+        protect,
+        controller.getReports
+    )
 // router.route('/:id')
 //     .get(crudControllers.getOne)
 
