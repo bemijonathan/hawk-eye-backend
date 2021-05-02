@@ -48,7 +48,7 @@ export class Notification {
             `
         Promise.all(groupMembers.map((individual, i) => {
             if(individual.startsWith('0')){
-                individual.replace('0', '+234')
+                individual = individual.replace('0', '+234')
             }
             return client.messages.create({
                 to: individual,
